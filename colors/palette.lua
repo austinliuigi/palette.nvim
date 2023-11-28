@@ -1,0 +1,1 @@
+require("palette").set()
