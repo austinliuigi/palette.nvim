@@ -1,3 +1,4 @@
+local utils = require("palette.utils")
 local theme = {}
 
 function theme.load(config)
@@ -26,6 +27,8 @@ function theme.load(config)
     italic = config.italic,
   }
 
+  local blend = utils.blend
+
   local highlights = {
     -- Vim
     ["ColorColumn"] = { bg = base02 },
@@ -33,14 +36,14 @@ function theme.load(config)
     ["CurSearch"] = { link = "IncSearch" },
     ["Cursor"] = { fg = base0F, bg = base03 },
     ["CursorColumn"] = { bg = base01 },
-    ["CursorLine"] = { bg = base01 },
+    ["CursorLine"] = { bg = blend(base01, base00, 0.5) },
     ["CursorLineNr"] = { fg = base0B },
     ["DarkenedPanel"] = { bg = maybe.float_background },
     ["DarkenedStatusline"] = { bg = maybe.float_background },
-    ["DiffAdd"] = { bg = base0B, blend = 20 },
-    ["DiffChange"] = { bg = base02 },
-    ["DiffDelete"] = { bg = base08, blend = 20 },
-    ["DiffText"] = { bg = base0A, blend = 20 },
+    ["DiffAdd"] = { fg = base0B, bg = blend(base0B, base00, 0.2) },
+    ["DiffChange"] = { fg = base02, bg = blend(base02, base00, 0.2) },
+    ["DiffDelete"] = { fg = base08, bg = blend(base08, base00, 0.2) },
+    ["DiffText"] = { fg = base0A, bg = blend(base0A, base00, 0.2) },
     ["diffAdded"] = { link = "DiffAdd" },
     ["diffChanged"] = { link = "DiffChange" },
     ["diffRemoved"] = { link = "DiffDelete" },
@@ -78,13 +81,14 @@ function theme.load(config)
     ["SpellLocal"] = { sp = base04, [config.line] = true },
     ["SpellRare"] = { sp = base04, [config.line] = true },
     ["SignColumn"] = { fg = base0B, bg = maybe.background },
-    ["StatusLine"] = { fg = base04, bg = base01 },
+    ["WinBar"] = { fg = base04, bg = maybe.background },
+    ["StatusLine"] = { fg = base04, bg = maybe.float_background },
     ["StatusLineNC"] = { fg = base03, bg = base01 },
     ["StatusLineTerm"] = { link = "StatusLine" },
     ["StatusLineTermNC"] = { link = "StatusLineNC" },
-    ["TabLine"] = { fg = base03, bg = base01 },
-    ["TabLineFill"] = { bg = base00 },
-    ["TabLineSel"] = { fg = base04, bg = base02 },
+    ["TabLine"] = { fg = base04, bg = base01 },
+    ["TabLineFill"] = { bg = maybe.background },
+    ["TabLineSel"] = { fg = base05, bg = base02, bold = maybe.bold },
     ["Title"] = { fg = base0B },
     ["VertSplit"] = { fg = base0B, bold = maybe.bold },
     ["Visual"] = { bg = base02 },
@@ -272,7 +276,7 @@ function theme.load(config)
     ["@namespace"] = { link = "@include" },
 
     -- LSP
-    ["LspInlayHint"] = { link = "@comment" },
+    ["LspInlayHint"] = { fg = base03, underline = true },
     ["@lsp"] = {},
     ["@lsp.type.comment"] = {},
     ["@lsp.type.enum"] = { link = "@type" },
@@ -312,7 +316,11 @@ function theme.load(config)
     ["NeogitUnmergedInto"] = { fg = base09 },
     ["NeogitChangeAdded"] = { fg = base0B },
     ["NeogitChangeModified"] = { fg = base0A },
+    ["NeogitChangeRenamed"] = { fg = base0E },
+    ["NeogitChangeDeleted"] = { fg = base08 },
     ["NeogitPopupSwitchKey"] = { fg = base0F },
+    ["NeogitPopupOptionKey"] = { fg = base09 },
+    ["NeogitPopupActionKey"] = { fg = base0B },
     ["NeogitDiffAdd"] = { link = "DiffAdd" },
     ["NeogitDiffAddHighlight"] = { link = "DiffAdd" },
     ["NeogitDiffContextHighlight"] = { bg = base01 },
@@ -442,7 +450,7 @@ function theme.load(config)
   }
 
   vim.g.terminal_color_0 = base00 -- black
-  vim.g.terminal_color_8 = base00 -- bright black
+  vim.g.terminal_color_8 = base03 -- bright black
   vim.g.terminal_color_1 = base08 -- red
   vim.g.terminal_color_9 = base08 -- bright red
   vim.g.terminal_color_2 = base0B -- green
