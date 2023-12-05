@@ -1,1 +1,1 @@
-require("palette").set()
+require("palette").load()

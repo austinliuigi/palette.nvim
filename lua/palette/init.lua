@@ -23,7 +23,7 @@ function palette.setup(cfg)
   config = vim.tbl_deep_extend("force", config, cfg)
 end
 
-function palette.set()
+function palette.load()
   if config.palette == nil then
     vim.notify("palette: color palette is not configured, aborting colorscheme change", vim.log.levels.ERROR)
     return
