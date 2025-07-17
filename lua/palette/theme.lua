@@ -1,6 +1,8 @@
 local utils = require("palette.utils")
 local theme = {}
 
+local blend = utils.blend
+
 function theme.load(config)
   local base00 = config.palette.base00
   local base01 = config.palette.base01
@@ -22,15 +24,32 @@ function theme.load(config)
   local maybe = {
     background = config.transparent and "NONE" or base00,
     float_background = config.transparent_float and "NONE" or base01,
-    nc_background = config.dim_nc_background and base01 or base00,
+    nc_background = config.dim_nc_background and blend(base01, base00, 0.2) or base00,
     bold = config.bold,
     italic = config.italic,
   }
 
-  local blend = utils.blend
-
   local highlights = {
-    -- Vim
+    -- Custom {{{
+    ["Base00"] = { fg = base00 },
+    ["Base01"] = { fg = base01 },
+    ["Base02"] = { fg = base02 },
+    ["Base03"] = { fg = base03 },
+    ["Base04"] = { fg = base04 },
+    ["Base05"] = { fg = base05 },
+    ["Base06"] = { fg = base06 },
+    ["Base07"] = { fg = base07 },
+    ["Base08"] = { fg = base08 },
+    ["Base09"] = { fg = base09 },
+    ["Base0A"] = { fg = base0A },
+    ["Base0B"] = { fg = base0B },
+    ["Base0C"] = { fg = base0C },
+    ["Base0D"] = { fg = base0D },
+    ["Base0E"] = { fg = base0E },
+    ["Base0F"] = { fg = base0F },
+    -- }}}
+
+    -- Vim {{{
     ["ColorColumn"] = { bg = base02 },
     ["Conceal"] = { bg = "NONE" },
     ["CurSearch"] = { link = "IncSearch" },
@@ -41,22 +60,22 @@ function theme.load(config)
     ["DarkenedPanel"] = { bg = maybe.float_background },
     ["DarkenedStatusline"] = { bg = maybe.float_background },
     ["DiffAdd"] = { fg = base0B, bg = blend(base0B, base00, 0.2) },
-    ["DiffChange"] = { fg = base02, bg = blend(base02, base00, 0.2) },
+    ["DiffChange"] = { fg = base0A, bg = blend(base0A, base00, 0.2) },
     ["DiffDelete"] = { fg = base08, bg = blend(base08, base00, 0.2) },
-    ["DiffText"] = { fg = base0A, bg = blend(base0A, base00, 0.2) },
+    ["DiffText"] = { fg = base09, bg = blend(base09, base00, 0.2) },
     ["diffAdded"] = { link = "DiffAdd" },
     ["diffChanged"] = { link = "DiffChange" },
     ["diffRemoved"] = { link = "DiffDelete" },
-    ["Directory"] = { fg = base0C, bg = "NONE" },
+    ["Directory"] = { fg = base0D, bg = "NONE" },
     ["EndOfBuffer"] = { link = "NonText" },
     ["ErrorMsg"] = { fg = base08, bold = true },
     ["FloatBorder"] = { fg = base0B, bg = maybe.float_background },
     ["FloatTitle"] = { fg = base03 },
     ["FoldColumn"] = { fg = base03 },
-    ["Folded"] = { fg = base0B, bg = maybe.float_background },
-    ["IncSearch"] = { fg = base00, bg = base0A },
+    ["Folded"] = { fg = base05, bg = maybe.float_background, bold = true },
+    ["IncSearch"] = { fg = base00, bg = base09 },
     ["LineNr"] = { fg = base03 },
-    ["MatchParen"] = { fg = base0B, bg = base02 },
+    ["MatchParen"] = { fg = base0B, bold = maybe.bold, underline = true },
     ["ModeMsg"] = { fg = base04 },
     ["MoreMsg"] = { fg = base0B },
     ["NonText"] = { fg = base02 },
@@ -74,7 +93,7 @@ function theme.load(config)
     ["RedrawDebugClear"] = { fg = "#ffffff", bg = base0A },
     ["RedrawDebugComposed"] = { fg = "#ffffff", bg = base0C },
     ["RedrawDebugRecompose"] = { fg = "#ffffff", bg = base08 },
-    ["Search"] = { fg = base00, bg = base0B },
+    ["Search"] = { fg = base00, bg = blend(base0A, base00, 0.6) },
     ["SpecialKey"] = { fg = base0C },
     ["SpellBad"] = { sp = base04, [config.line] = true },
     ["SpellCap"] = { sp = base04, [config.line] = true },
@@ -82,6 +101,7 @@ function theme.load(config)
     ["SpellRare"] = { sp = base04, [config.line] = true },
     ["SignColumn"] = { fg = base0B, bg = maybe.background },
     ["WinBar"] = { fg = base04, bg = maybe.background },
+    ["WinBarNC"] = { link = "WinBar" },
     ["StatusLine"] = { fg = base04, bg = maybe.float_background },
     ["StatusLineNC"] = { fg = base03, bg = base01 },
     ["StatusLineTerm"] = { link = "StatusLine" },
@@ -89,6 +109,7 @@ function theme.load(config)
     ["TabLine"] = { fg = base04, bg = base01 },
     ["TabLineFill"] = { bg = maybe.background },
     ["TabLineSel"] = { fg = base05, bg = base02, bold = maybe.bold },
+    ["TermCursor"] = { bg = base0A },
     ["Title"] = { fg = base0B },
     ["VertSplit"] = { fg = base0B, bold = maybe.bold },
     ["Visual"] = { bg = base02 },
@@ -96,8 +117,9 @@ function theme.load(config)
     ["WarningMsg"] = { fg = base09 },
     ["Whitespace"] = { link = "NonText" },
     ["WildMenu"] = { link = "IncSearch" },
+    -- }}}
 
-    -- Code
+    -- Code {{{
     ["Boolean"] = { fg = base09 },
     ["Character"] = { fg = base09 },
     ["Comment"] = { fg = base03, italic = maybe.italic },
@@ -132,8 +154,9 @@ function theme.load(config)
     ["Type"] = { fg = base0C },
     ["Typedef"] = { link = "Type" },
     ["Underlined"] = { underline = true },
+    -- }}}
 
-    -- HTML
+    -- HTML {{{
     ["htmlArg"] = { fg = base0B },
     ["htmlBold"] = { bold = true },
     ["htmlEndTag"] = { fg = base04 },
@@ -147,8 +170,9 @@ function theme.load(config)
     ["htmlTag"] = { fg = base04 },
     ["htmlTagN"] = { fg = base0B },
     ["htmlTagName"] = { fg = base0C },
+    -- }}}
 
-    -- Markdown
+    -- Markdown {{{
     ["markdownDelimiter"] = { fg = base04 },
     ["markdownH1"] = { link = "@neorg.headings.1.prefix.norg" },
     ["markdownH1Delimiter"] = { link = "markdownH1" },
@@ -176,8 +200,16 @@ function theme.load(config)
     ["mkdListItemLine"] = { fg = base0B },
     ["mkdRule"] = { fg = base04 },
     ["mkdURL"] = { link = "mkdInlineURL" },
+    ["@markup.quote.markdown"] = { link = "@comment" },
+    ["@markup.heading.1.markdown"] = { link = "@neorg.headings.1.prefix.norg" },
+    ["@markup.heading.2.markdown"] = { link = "@neorg.headings.2.prefix.norg" },
+    ["@markup.heading.3.markdown"] = { link = "@neorg.headings.3.prefix.norg" },
+    ["@markup.heading.4.markdown"] = { link = "@neorg.headings.4.prefix.norg" },
+    ["@markup.heading.5.markdown"] = { link = "@neorg.headings.5.prefix.norg" },
+    ["@markup.heading.6.markdown"] = { link = "@neorg.headings.6.prefix.norg" },
+    -- }}}
 
-    -- Diagnostics
+    -- Diagnostics {{{
     ["DiagnosticError"] = { fg = base08 },
     ["DiagnosticHint"] = { fg = base0D },
     ["DiagnosticInfo"] = { fg = base0C },
@@ -207,13 +239,15 @@ function theme.load(config)
     ["DiagnosticVirtualTextHint"] = { fg = base0D },
     ["DiagnosticVirtualTextInfo"] = { fg = base0C },
     ["DiagnosticVirtualTextWarn"] = { fg = base09 },
+    -- }}}
 
-    -- Healthcheck
+    -- Healthcheck {{{
     ["healthError"] = { fg = base08 },
     ["healthSuccess"] = { fg = base0C },
     ["healthWarning"] = { fg = base09 },
+    -- }}}
 
-    -- Treesitter
+    -- Treesitter {{{
     ["@boolean"] = { link = "Boolean" },
     ["@character"] = { link = "Character" },
     ["@character.special"] = { link = "@character" },
@@ -274,8 +308,9 @@ function theme.load(config)
     ["@variable"] = { fg = base05, italic = maybe.italic },
     ["@variable.builtin"] = { link = "@variable" },
     ["@namespace"] = { link = "@include" },
+    -- }}}
 
-    -- LSP
+    -- LSP {{{
     ["LspInlayHint"] = { fg = base03, underline = true },
     ["@lsp"] = {},
     ["@lsp.type.comment"] = {},
@@ -294,42 +329,265 @@ function theme.load(config)
     ["LspReferenceText"] = { bg = base0B },
     ["LspReferenceRead"] = { bg = base0B },
     ["LspReferenceWrite"] = { bg = base0B },
+    -- }}}
 
-    -- hrsh7th/nvim-cmp
+    -- stevearc/aerial.nvim {{{
+    ["AerialLine"] = { fg = base0D, bg = blend(base0D, base00, 0.2) },
+    ["AerialArrayIcon"] = { fg = base0A },
+    ["AerialBooleanIcon"] = { fg = base0A },
+    ["AerialClassIcon"] = { fg = base0C },
+    ["AerialConstantIcon"] = { fg = base0A },
+    ["AerialConstructorIcon"] = { fg = base0A },
+    ["AerialEnumIcon"] = { fg = base0A },
+    ["AerialEnumMemberIcon"] = { fg = base0C },
+    ["AerialEventIcon"] = { fg = base0A },
+    ["AerialFieldIcon"] = { fg = base0C },
+    ["AerialFileIcon"] = { fg = base00 },
+    ["AerialFunctionIcon"] = { fg = base0C },
+    ["AerialInterfaceIcon"] = { fg = base0C },
+    ["AerialKeyIcon"] = { fg = base0B },
+    ["AerialKeywordIcon"] = { fg = base0C },
+    ["AerialMethodIcon"] = { fg = base0C },
+    ["AerialModuleIcon"] = { fg = base0A },
+    ["AerialNamespaceIcon"] = { fg = base00 },
+    ["AerialNullIcon"] = { fg = base08 },
+    ["AerialNumberIcon"] = { fg = base0A },
+    ["AerialObjectIcon"] = { fg = base0A },
+    ["AerialOperatorIcon"] = { fg = base04 },
+    ["AerialPackageIcon"] = { fg = base00 },
+    ["AerialPropertyIcon"] = { fg = base0C },
+    ["AerialStringIcon"] = { fg = base0A },
+    ["AerialStructIcon"] = { fg = base0C },
+    ["AerialTypeParameterIcon"] = { fg = base0C },
+    ["AerialVariableIcon"] = { fg = base0B },
+    -- }}}
+
+    -- hrsh7th/nvim-cmp {{{
+    --   - each highlight group has a corresponding one succeeds with "Default"
+    --   - these are set by a ColorScheme `:autocmd ___cmp___` that is set in `nvim-cmp/plugin/cmp.lua`
+    --     so they can't be overridden (they'll be reset after colorscheme change)
+    --   - the non-Default groups initially link to the Default ones but can be overridden
     ["CmpItemAbbr"] = { fg = base04 },
     ["CmpItemAbbrDeprecated"] = { fg = base04, strikethrough = true },
     ["CmpItemAbbrMatch"] = { fg = base05, bold = true },
     ["CmpItemAbbrMatchFuzzy"] = { fg = base05, bold = true },
-    ["CmpItemKind"] = { fg = base04 },
+
+    ["CmpItemKind"] = { fg = blend(base03, base04, 0.3) },
     ["CmpItemKindClass"] = { fg = base0C },
+    ["CmpItemKindColor"] = { default = true, link = "CmpItemKindColorDefault" },
+    ["CmpItemKindConstant"] = { default = true, link = "CmpItemKindConstantDefault" },
+    ["CmpItemKindConstructor"] = { default = true, link = "CmpItemKindConstructorDefault" },
+    ["CmpItemKindEnum"] = { default = true, link = "CmpItemKindEnumDefault" },
+    ["CmpItemKindEnumMember"] = { default = true, link = "CmpItemKindEnumMemberDefault" },
+    ["CmpItemKindEvent"] = { default = true, link = "CmpItemKindEventDefault" },
+    ["CmpItemKindField"] = { default = true, link = "CmpItemKindFieldDefault" },
+    ["CmpItemKindFile"] = { default = true, link = "CmpItemKindFileDefault" },
+    ["CmpItemKindFolder"] = { default = true, link = "CmpItemKindFolderDefault" },
     ["CmpItemKindFunction"] = { fg = base0A },
     ["CmpItemKindInterface"] = { fg = base0C },
+    ["CmpItemKindKeyword"] = { default = true, link = "CmpItemKindKeywordDefault" },
     ["CmpItemKindMethod"] = { fg = base0C },
+    ["CmpItemKindModule"] = { default = true, link = "CmpItemKindModuleDefault" },
+    ["CmpItemKindOperator"] = { default = true, link = "CmpItemKindOperatorDefault" },
+    ["CmpItemKindProperty"] = { default = true, link = "CmpItemKindPropertyDefault" },
+    ["CmpItemKindReference"] = { default = true, link = "CmpItemKindReferenceDefault" },
     ["CmpItemKindSnippet"] = { fg = base0A },
+    ["CmpItemKindStruct"] = { default = true, link = "CmpItemKindStructDefault" },
+    ["CmpItemKindText"] = { default = true, link = "CmpItemKindTextDefault" },
+    ["CmpItemKindTypeParameter"] = { default = true, link = "CmpItemKindTypeParameterDefault" },
+    ["CmpItemKindUnit"] = { default = true, link = "CmpItemKindUnitDefault" },
+    ["CmpItemKindValue"] = { default = true, link = "CmpItemKindValueDefault" },
     ["CmpItemKindVariable"] = { fg = base0B },
 
-    -- TimUntersberger/neogit
+    ["CmpItemKindClassDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindColorDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindConstantDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindConstructorDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindDefault"] = { fg = base0C },
+    ["CmpItemKindEnumDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindEnumMemberDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindEventDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindFieldDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindFileDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindFolderDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindFunctionDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindInterfaceDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindKeywordDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindMethodDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindModuleDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindOperatorDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindPropertyDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindReferenceDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindSnippetDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindStructDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindTextDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindTypeParameterDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindUnitDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindValueDefault"] = { link = "CmpItemKind" },
+    ["CmpItemKindVariableDefault"] = { link = "CmpItemKind" },
+
+    ["CmpItemMenu"] = { default = true, link = "CmpItemMenuDefault" },
+    ["CmpItemMenuDefault"] = { fg = base04, italic = maybe.italic },
+    ["CmpGhostText"] = { fg = base03, italic = maybe.italic, underline = true },
+    -- }}}
+
+    -- Saghen/blink.cmp {{{
+    ["BlinkCmpMenu"] = { link = "Normal" },
+    ["BlinkCmpMenuBorder"] = { link = "Normal" },
+    ["BlinkCmpMenuSelection"] = { bg = base01, bold = maybe.bold },
+    ["BlinkCmpScrollBarThumb"] = { bg = base0A },
+    ["BlinkCmpScrollBarGutter"] = {},
+
+    ["BlinkCmpDoc"] = { link = "BlinkCmpMenu" },
+    ["BlinkCmpDocBorder"] = { fg = base0B },
+    ["BlinkCmpDocSeparator"] = { fg = base03 },
+    ["BlinkCmpDocCursorLine"] = {},
+    ["BlinkCmpSignatureHelp"] = { link = "BlinkCmpMenu" },
+    ["BlinkCmpSignatureHelpBorder"] = { fg = base03 },
+    ["BlinkCmpSignatureHelpActiveParameter"] = { link = "BlinkCmpMenuSelection" },
+
+    ["BlinkCmpLabel"] = {},
+    ["BlinkCmpLabelDeprecated"] = {},
+    ["BlinkCmpLabelMatch"] = { fg = base0D, bold = maybe.bold },
+    ["BlinkCmpLabelDetail"] = {},
+    ["BlinkCmpLabelDescription"] = {},
+
+    ["BlinkCmpSource"] = { fg = base03 },
+
+    ["BlinkCmpKind"] = { link = "CmpItemKind" },
+    ["BlinkCmpKindClass"] = { link = "CmpItemKindClass" },
+    ["BlinkCmpKindColor"] = { link = "CmpItemKindColor" },
+    ["BlinkCmpKindConstant"] = { link = "CmpItemKindConstant" },
+    ["BlinkCmpKindConstructor"] = { link = "CmpItemKindConstructor" },
+    ["BlinkCmpKindEnum"] = { link = "CmpItemKindEnum" },
+    ["BlinkCmpKindEnumMember"] = { link = "CmpItemKindEnumMember" },
+    ["BlinkCmpKindEvent"] = { link = "CmpItemKindEvent" },
+    ["BlinkCmpKindField"] = { link = "CmpItemKindField" },
+    ["BlinkCmpKindFile"] = { link = "CmpItemKindFile" },
+    ["BlinkCmpKindFolder"] = { link = "CmpItemKindFolder" },
+    ["BlinkCmpKindFunction"] = { link = "CmpItemKindFunction" },
+    ["BlinkCmpKindInterface"] = { link = "CmpItemKindInterface" },
+    ["BlinkCmpKindKeyword"] = { link = "CmpItemKindKeyword" },
+    ["BlinkCmpKindMethod"] = { link = "CmpItemKindMethod" },
+    ["BlinkCmpKindModule"] = { link = "CmpItemKindModule" },
+    ["BlinkCmpKindOperator"] = { link = "CmpItemKindOperator" },
+    ["BlinkCmpKindProperty"] = { link = "CmpItemKindProperty" },
+    ["BlinkCmpKindReference"] = { link = "CmpItemKindReference" },
+    ["BlinkCmpKindSnippet"] = { link = "CmpItemKindSnippet" },
+    ["BlinkCmpKindStruct"] = { link = "CmpItemKindStruct" },
+    ["BlinkCmpKindText"] = { link = "CmpItemKindText" },
+    ["BlinkCmpKindTypeParameter"] = { link = "CmpItemKindTypeParameter" },
+    ["BlinkCmpKindUnit"] = { link = "CmpItemKindUnit" },
+    ["BlinkCmpKindValue"] = { link = "CmpItemKindValue" },
+    ["BlinkCmpKindVariable"] = { link = "CmpItemKindVariable" },
+
+    ["BlinkCmpGhostText"] = { link = "CmpGhostText" },
+    -- }}}
+
+    -- TimUntersberger/neogit {{{
+    -- ----- Status Buffer -----
     ["NeogitSectionHeader"] = { fg = base0D, bold = maybe.bold, underline = true },
-    ["NeogitBranch"] = { fg = base0C },
-    ["NeogitRemote"] = { fg = base0F },
-    ["NeogitObjectID"] = { fg = base0E },
-    ["NeogitUnmergedInto"] = { fg = base09 },
+
+    ["NeogitBranch"] = { fg = base0C }, -- local branches
+    ["NeogitBranchHead"] = { fg = base0C, bold = maybe.bold }, -- current HEAD in LogBuffer
+    ["NeogitRemote"] = { fg = base0F }, -- remote branches
+    ["NeogitObjectID"] = { fg = base0E }, -- object SHA hash
+    ["NeogitStash"] = { fg = base0A }, -- stash name
+    ["NeogitRebaseDone"] = { fg = base0C, bold = maybe.bold, underline = true }, -- current HEAD in LogBuffer
+
+    -- Change types
     ["NeogitChangeAdded"] = { fg = base0B },
     ["NeogitChangeModified"] = { fg = base0A },
-    ["NeogitChangeRenamed"] = { fg = base0E },
+    ["NeogitChangeRenamed"] = { fg = base09 },
     ["NeogitChangeDeleted"] = { fg = base08 },
-    ["NeogitPopupSwitchKey"] = { fg = base0F },
-    ["NeogitPopupOptionKey"] = { fg = base09 },
-    ["NeogitPopupActionKey"] = { fg = base0B },
-    ["NeogitDiffAdd"] = { link = "DiffAdd" },
-    ["NeogitDiffAddHighlight"] = { link = "DiffAdd" },
-    ["NeogitDiffContextHighlight"] = { bg = base01 },
-    ["NeogitDiffDelete"] = { link = "DiffRemoved" },
-    ["NeogitDiffDeleteHighlight"] = { link = "DiffRemoved" },
-    ["NeogitHunkHeader"] = { bg = base01 },
-    ["NeogitHunkHeaderHighlight"] = { bg = base01 },
+    ["NeogitChangeUpdated"] = { fg = base0E },
+    ["NeogitChangeCopied"] = { fg = base0D },
+    ["NeogitChangeNewFile"] = { fg = base08 },
+    ["NeogitChangeUnmerged"] = { fg = base09 },
 
-    -- nvim-neorg/neorg
+    -- Sign highlights
+    ["NeogitHunkHeader"] = { bg = blend(base00, base01, 0.4) },
+    ["NeogitDiffContext"] = { bg = blend(base00, base01, 0.8) },
+    ["NeogitDiffAdd"] = { link = "DiffAdd" },
+    ["NeogitDiffDelete"] = { link = "DiffRemoved" },
+    ["NeogitDiffHeader"] = { bg = blend(base00, base01, 0.8) },
+
+    -- Sign highlights for current context
+    ["NeogitHunkHeaderHighlight"] = { link = "NeogitHunkHeader" },
+    ["NeogitDiffContextHighlight"] = { link = "NeogitDiffContext" },
+    ["NeogitDiffAddHighlight"] = { link = "NeogitDiffAdd" },
+    ["NeogitDiffDeleteHighlight"] = { link = "NeogitDiffDelete" },
+    ["NeogitDiffHeaderHighlight"] = { link = "NeogitDiffHeader" },
+
+    -- Sign highlights for current cursorline
+    ["NeogitHunkHeaderCursor"] = { link = "CursorLine" },
+    ["NeogitDiffContextCursor"] = { link = "CursorLine" },
+    ["NeogitDiffAddCursor"] = { fg = base0B, bg = blend(base0B, base00, 0.2), underline = true }, -- TODO: use dye
+    ["NeogitDiffDeleteCursor"] = { fg = base08, bg = blend(base0A, base00, 0.2), underline = true }, -- TODO: use dye
+    ["NeogitDiffHeaderCursor"] = { link = "CursorLine" },
+
+    -- ----- Log-view Buffer -----
+    ["NeogitGraphAuthor"] = { fg = base0F },
+
+    -- Graph colors when --colors is enabled
+    ["NeogitGraphBlack"] = { fg = base00 },
+    ["NeogitGraphBoldBlack"] = { fg = base00, bold = maybe.bold },
+    ["NeogitGraphRed"] = { fg = base08 },
+    ["NeogitGraphBoldRed"] = { fg = base08, bold = maybe.bold },
+    ["NeogitGraphGreen"] = { fg = base0B },
+    ["NeogitGraphBoldGreen"] = { fg = base0B, bold = maybe.bold },
+    ["NeogitGraphYellow"] = { fg = base0A },
+    ["NeogitGraphBoldYellow"] = { fg = base0A, bold = maybe.bold },
+    ["NeogitGraphBlue"] = { fg = base0D },
+    ["NeogitGraphBoldBlue"] = { fg = base0D, bold = maybe.bold },
+    ["NeogitGraphPurple"] = { fg = base0E },
+    ["NeogitGraphBoldPurple"] = { fg = base0E, bold = maybe.bold },
+    ["NeogitGraphCyan"] = { fg = base0C },
+    ["NeogitGraphBoldCyan"] = { fg = base0C, bold = maybe.bold },
+    ["NeogitGraphWhite"] = { fg = base07 },
+    ["NeogitGraphBoldWhite"] = { fg = base07, bold = maybe.bold },
+    ["NeogitGraphGray"] = { fg = base03 },
+    ["NeogitGraphBoldGray"] = { fg = base03, bold = maybe.bold },
+    ["NeogitGraphOrange"] = { fg = base09 },
+    ["NeogitGraphBoldOrange"] = { fg = base09, bold = maybe.bold },
+
+    -- ----- Command-History Buffer -----
+    ["NeogitCommandText"] = { fg = base04 },
+    ["NeogitCommandTime"] = { fg = base03 },
+    ["NeogitCommandCodeNormal"] = { fg = base0A },
+    ["NeoogitCommandCodeError"] = { fg = base08 },
+
+    -- ----- Commit-Select Buffer -----
+    ["NeogitFloatHeader"] = { fg = base0D },
+    ["NeogitFloatHeaderHighlight"] = { fg = base0D },
+
+    -- ----- Popups -----
+    ["NeogitPopupSectionTitle"] = { fg = base0C },
+    ["NeogitPopupBranchName"] = { fg = base0C, bold = maybe.bold, underline = true },
+    ["NeogitPopupBold"] = { fg = base0C, bold = maybe.bold },
+
+    -- Switches (boolean cli flags)
+    ["NeogitPopupSwitchKey"] = { fg = base09 },
+    ["NeogitPopupSwitchEnabled"] = { fg = base0A },
+    ["NeogitPopupSwitchDisabled"] = { fg = base03, italic = maybe.italic },
+
+    -- Options (cli flags that take an argument)
+    ["NeogitPopupOptionKey"] = { link = "NeogitPopupSwitchKey" },
+    ["NeogitPopupOptionEnabled"] = { link = "NeogitPopupSwitchEnabled" },
+    ["NeogitPopupOptionDisabled"] = { link = "NeogitPopupSwitchDisabled" },
+
+    -- Config
+    ["NeogitPopupConfigKey"] = { link = "NeogitPopupSwitchKey" },
+    ["NeogitPopupConfigEnabled"] = { link = "NeogitPopupSwitchEnabled" },
+    ["NeogitPopupConfigDisabled"] = { link = "NeogitPopupSwitchDisabled" },
+
+    -- Actions (key that triggers function)
+    ["NeogitPopupActionKey"] = { fg = base0B },
+    ["NeogitPopupActionDisabled"] = { fg = base03 },
+
+    -- }}}
+
+    -- nvim-neorg/neorg {{{
     ["NeorgHeading1Prefix"] = { link = "@neorg.headings.1.prefix.norg" },
     ["NeorgHeading1Title"] = { link = "NeorgHeading1Prefix" },
     ["NeorgHeading2Prefix"] = { link = "@neorg.headings.2.prefix.norg" },
@@ -357,13 +615,17 @@ function theme.load(config)
     ["@neorg.headings.6.title.norg"] = { link = "@neorg.headings.6.title.norg" },
     ["@neorg.markup.verbatim"] = { fg = base03 },
     ["@neorg.anchors.declaration.norg"] = { fg = base0D },
+    ["@neorg.tags.ranged_verbatim.code_block"] = { bg = base01 },
+    -- }}}
 
-    -- ggandor/leap.nvim
-    ["LeapMatch"] = { link = "MatchParen" },
-    ["LeapLabelPrimary"] = { link = "Special" },
-    ["LeapLabelSecondary"] = { link = "IncSearch" },
+    -- nvim-treesitter/nvim-treesitter-context
+    ["TreesitterContext"] = { bg = base00 },
+    ["TreesitterContextSeparator"] = { fg = base03 },
+    ["TreesitterContextLineNumber"] = { link = "LineNr" },
+    ["TreesitterContextBottom"] = { link = "TreesitterContext" },
+    ["TreesitterContextLineNumberBottom"] = { link = "TreesitterContextLineNumber" },
 
-    -- nvim-telescope/telescope.nvim
+    -- nvim-telescope/telescope.nvim {{{
     ["TelescopeBorder"] = { fg = base0B, bg = base01 },
     ["TelescopeMatching"] = { fg = base0A },
     ["TelescopeNormal"] = { fg = base04, bg = base01 },
@@ -372,8 +634,9 @@ function theme.load(config)
     ["TelescopeSelection"] = { fg = base0B, bg = base02 },
     ["TelescopeSelectionCaret"] = { fg = base0A, bg = base02 },
     ["TelescopeTitle"] = { fg = base04 },
+    -- }}}
 
-    -- rcarriga/nvim-notify
+    -- rcarriga/nvim-notify {{{
     ["NotifyINFOBorder"] = { fg = base0B },
     ["NotifyINFOTitle"] = { link = "NotifyINFOBorder" },
     ["NotifyINFOIcon"] = { link = "NotifyINFOBorder" },
@@ -389,8 +652,9 @@ function theme.load(config)
     ["NotifyERRORBorder"] = { fg = base08 },
     ["NotifyERRORTitle"] = { link = "NotifyERRORBorder" },
     ["NotifyERRORIcon"] = { link = "NotifyERRORBorder" },
+    -- }}}
 
-    -- rcarriga/nvim-dap-ui
+    -- rcarriga/nvim-dap-ui {{{
     ["DapUIVariable"] = { link = "Normal" },
     ["DapUIValue"] = { link = "Normal" },
     ["DapUIFrameName"] = { link = "Normal" },
@@ -410,43 +674,39 @@ function theme.load(config)
     ["DapUIStoppedThread"] = { link = "DapUIBreakpointsPath" },
     ["DapUIDecoration"] = { link = "DapUIBreakpointsPath" },
     ["DapUIModifiedValue"] = { fg = base0C, bold = true },
+    -- }}}
 
-    -- SmiteshP/nvim-navic
-    ["NavicIconsFile"] = { fg = base00 },
-    ["NavicIconsModule"] = { fg = base0A },
-    ["NavicIconsNamespace"] = { fg = base00 },
-    ["NavicIconsPackage"] = { fg = base00 },
+    -- SmiteshP/nvim-navic {{{
+    ["NavicIconsArray"] = { fg = base0A },
+    ["NavicIconsBoolean"] = { fg = base0A },
     ["NavicIconsClass"] = { fg = base0C },
-    ["NavicIconsMethod"] = { fg = base0C },
-    ["NavicIconsProperty"] = { fg = base0C },
-    ["NavicIconsField"] = { fg = base0C },
+    ["NavicIconsConstant"] = { fg = base0A },
     ["NavicIconsConstructor"] = { fg = base0A },
     ["NavicIconsEnum"] = { fg = base0A },
-    ["NavicIconsInterface"] = { fg = base0C },
+    ["NavicIconsEnumMember"] = { fg = base0C },
+    ["NavicIconsEvent"] = { fg = base0A },
+    ["NavicIconsField"] = { fg = base0C },
+    ["NavicIconsFile"] = { fg = base00 },
     ["NavicIconsFunction"] = { fg = base0C },
-    ["NavicIconsVariable"] = { fg = base0B },
-    ["NavicIconsConstant"] = { fg = base0A },
-    ["NavicIconsString"] = { fg = base0A },
-    ["NavicIconsNumber"] = { fg = base0A },
-    ["NavicIconsBoolean"] = { fg = base0A },
-    ["NavicIconsArray"] = { fg = base0A },
-    ["NavicIconsObject"] = { fg = base0A },
+    ["NavicIconsInterface"] = { fg = base0C },
     ["NavicIconsKey"] = { fg = base0B },
     ["NavicIconsKeyword"] = { fg = base0C },
+    ["NavicIconsMethod"] = { fg = base0C },
+    ["NavicIconsModule"] = { fg = base0A },
+    ["NavicIconsNamespace"] = { fg = base00 },
     ["NavicIconsNull"] = { fg = base08 },
-    ["NavicIconsEnumMember"] = { fg = base0C },
-    ["NavicIconsStruct"] = { fg = base0C },
-    ["NavicIconsEvent"] = { fg = base0A },
+    ["NavicIconsNumber"] = { fg = base0A },
+    ["NavicIconsObject"] = { fg = base0A },
     ["NavicIconsOperator"] = { fg = base04 },
+    ["NavicIconsPackage"] = { fg = base00 },
+    ["NavicIconsProperty"] = { fg = base0C },
+    ["NavicIconsString"] = { fg = base0A },
+    ["NavicIconsStruct"] = { fg = base0C },
     ["NavicIconsTypeParameter"] = { fg = base0C },
-    ["NavicText"] = { fg = base04 },
-    ["NavicSeparator"] = { fg = base04 },
-
-    -- goolord/alpha-nvim
-    ["AlphaHeader"] = { fg = base0C },
-    ["AlphaButtons"] = { fg = base0C },
-    ["AlphaShortcut"] = { fg = base0A },
-    ["AlphaFooter"] = { fg = base0A },
+    ["NavicIconsVariable"] = { fg = base0B },
+    ["NavicSeparator"] = { link = "Comment" },
+    ["NavicText"] = { link = "Normal" },
+    -- }}}
   }
 
   vim.g.terminal_color_0 = base00 -- black
@@ -472,3 +732,5 @@ function theme.load(config)
 end
 
 return theme
+
+-- vim: foldmethod=marker
