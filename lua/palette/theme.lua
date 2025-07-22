@@ -1,7 +1,5 @@
-local utils = require("palette.utils")
+local dye = require("dye")
 local theme = {}
-
-local blend = utils.blend
 
 function theme.load(config)
   local base00 = config.palette.base00
@@ -24,7 +22,7 @@ function theme.load(config)
   local maybe = {
     background = config.transparent and "NONE" or base00,
     float_background = config.transparent_float and "NONE" or base01,
-    nc_background = config.dim_nc_background and blend(base01, base00, 0.2) or base00,
+    nc_background = config.dim_nc_background and dye.blend(base01, base00, 0.8) or base00,
     bold = config.bold,
     italic = config.italic,
   }
@@ -55,14 +53,14 @@ function theme.load(config)
     ["CurSearch"] = { link = "IncSearch" },
     ["Cursor"] = { fg = base0F, bg = base03 },
     ["CursorColumn"] = { bg = base01 },
-    ["CursorLine"] = { bg = blend(base01, base00, 0.5) },
+    ["CursorLine"] = { bg = dye.blend(base01, base00, 0.5) },
     ["CursorLineNr"] = { fg = base0B },
     ["DarkenedPanel"] = { bg = maybe.float_background },
     ["DarkenedStatusline"] = { bg = maybe.float_background },
-    ["DiffAdd"] = { fg = base0B, bg = blend(base0B, base00, 0.2) },
-    ["DiffChange"] = { fg = base0A, bg = blend(base0A, base00, 0.2) },
-    ["DiffDelete"] = { fg = base08, bg = blend(base08, base00, 0.2) },
-    ["DiffText"] = { fg = base09, bg = blend(base09, base00, 0.2) },
+    ["DiffAdd"] = { fg = base0B, bg = dye.blend(base00, base0B, 0.3) },
+    ["DiffChange"] = { fg = base0A, bg = dye.blend(base00, base0A, 0.2) },
+    ["DiffDelete"] = { fg = base08, bg = dye.blend(base00, base08, 0.2) },
+    ["DiffText"] = { fg = base09, bg = dye.blend(base00, base09, 0.2) },
     ["diffAdded"] = { link = "DiffAdd" },
     ["diffChanged"] = { link = "DiffChange" },
     ["diffRemoved"] = { link = "DiffDelete" },
@@ -73,7 +71,7 @@ function theme.load(config)
     ["FloatTitle"] = { fg = base03 },
     ["FoldColumn"] = { fg = base03 },
     ["Folded"] = { fg = base05, bg = maybe.float_background, bold = true },
-    ["IncSearch"] = { fg = base00, bg = base09 },
+    ["IncSearch"] = { fg = base00, bg = base0A },
     ["LineNr"] = { fg = base03 },
     ["MatchParen"] = { fg = base0B, bold = maybe.bold, underline = true },
     ["ModeMsg"] = { fg = base04 },
@@ -93,7 +91,7 @@ function theme.load(config)
     ["RedrawDebugClear"] = { fg = "#ffffff", bg = base0A },
     ["RedrawDebugComposed"] = { fg = "#ffffff", bg = base0C },
     ["RedrawDebugRecompose"] = { fg = "#ffffff", bg = base08 },
-    ["Search"] = { fg = base00, bg = blend(base0A, base00, 0.6) },
+    ["Search"] = { fg = base00, bg = dye.blend(base00, base0A, 0.6) },
     ["SpecialKey"] = { fg = base0C },
     ["SpellBad"] = { sp = base04, [config.line] = true },
     ["SpellCap"] = { sp = base04, [config.line] = true },
@@ -332,7 +330,7 @@ function theme.load(config)
     -- }}}
 
     -- stevearc/aerial.nvim {{{
-    ["AerialLine"] = { fg = base0D, bg = blend(base0D, base00, 0.2) },
+    ["AerialLine"] = { fg = base0D, bg = dye.blend(base00, base0D, 0.2) },
     ["AerialArrayIcon"] = { fg = base0A },
     ["AerialBooleanIcon"] = { fg = base0A },
     ["AerialClassIcon"] = { fg = base0C },
@@ -372,7 +370,7 @@ function theme.load(config)
     ["CmpItemAbbrMatch"] = { fg = base05, bold = true },
     ["CmpItemAbbrMatchFuzzy"] = { fg = base05, bold = true },
 
-    ["CmpItemKind"] = { fg = blend(base03, base04, 0.3) },
+    ["CmpItemKind"] = { fg = dye.blend(base03, base04, 0.7) },
     ["CmpItemKindClass"] = { fg = base0C },
     ["CmpItemKindColor"] = { default = true, link = "CmpItemKindColorDefault" },
     ["CmpItemKindConstant"] = { default = true, link = "CmpItemKindConstantDefault" },
@@ -506,11 +504,11 @@ function theme.load(config)
     ["NeogitChangeUnmerged"] = { fg = base09 },
 
     -- Sign highlights
-    ["NeogitHunkHeader"] = { bg = blend(base00, base01, 0.4) },
-    ["NeogitDiffContext"] = { bg = blend(base00, base01, 0.8) },
+    ["NeogitHunkHeader"] = { bg = dye.blend(base00, base01, 0.6) },
+    ["NeogitDiffContext"] = { bg = dye.blend(base00, base01, 0.2) },
     ["NeogitDiffAdd"] = { link = "DiffAdd" },
     ["NeogitDiffDelete"] = { link = "DiffRemoved" },
-    ["NeogitDiffHeader"] = { bg = blend(base00, base01, 0.8) },
+    ["NeogitDiffHeader"] = { bg = dye.blend(base00, base01, 0.2) },
 
     -- Sign highlights for current context
     ["NeogitHunkHeaderHighlight"] = { link = "NeogitHunkHeader" },
@@ -522,8 +520,8 @@ function theme.load(config)
     -- Sign highlights for current cursorline
     ["NeogitHunkHeaderCursor"] = { link = "CursorLine" },
     ["NeogitDiffContextCursor"] = { link = "CursorLine" },
-    ["NeogitDiffAddCursor"] = { fg = base0B, bg = blend(base0B, base00, 0.2), underline = true }, -- TODO: use dye
-    ["NeogitDiffDeleteCursor"] = { fg = base08, bg = blend(base0A, base00, 0.2), underline = true }, -- TODO: use dye
+    ["NeogitDiffAddCursor"] = { fg = base0B, bg = dye.blend(base00, base0B, 0.2), underline = true }, -- TODO: use dye
+    ["NeogitDiffDeleteCursor"] = { fg = base08, bg = dye.blend(base00, base0A, 0.2), underline = true }, -- TODO: use dye
     ["NeogitDiffHeaderCursor"] = { link = "CursorLine" },
 
     -- ----- Log-view Buffer -----
