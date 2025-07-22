@@ -91,7 +91,7 @@ function theme.load(config)
     ["RedrawDebugClear"] = { fg = "#ffffff", bg = base0A },
     ["RedrawDebugComposed"] = { fg = "#ffffff", bg = base0C },
     ["RedrawDebugRecompose"] = { fg = "#ffffff", bg = base08 },
-    ["Search"] = { fg = base00, bg = dye.blend(base00, base0A, 0.6) },
+    ["Search"] = { bg = dye.blend(base00, base0A, 0.2) },
     ["SpecialKey"] = { fg = base0C },
     ["SpellBad"] = { sp = dye.blend(base00, base08, 0.3), undercurl = true },
     ["SpellCap"] = { sp = dye.blend(base00, base0A, 0.3), undercurl = true },
