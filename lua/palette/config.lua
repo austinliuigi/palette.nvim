@@ -14,7 +14,6 @@ local defaults = {
   transparent = false, -- whether normal windows should have a transparent background
   transparent_float = false, -- whether floating windows should have a transparent background
   dim_nc_background = false, -- whether to dim the background of non-current windows
-  line = "underline", -- line style for warnings/errors
 }
 
 return defaults
