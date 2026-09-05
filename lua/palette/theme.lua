@@ -48,13 +48,16 @@ function theme.load(config)
     -- }}}
 
     -- Vim {{{
+    ["Added"] = { fg = dye.blend(base00, base0B, 0.7) },
+    ["Changed"] = { fg = dye.blend(base00, base0A, 0.7) },
+    ["Removed"] = { fg = dye.blend(base00, base08, 0.7) },
     ["ColorColumn"] = { bg = base02 },
     ["Conceal"] = { bg = "NONE" },
     ["CurSearch"] = { link = "IncSearch" },
     ["Cursor"] = { fg = base0F, bg = base03 },
     ["CursorColumn"] = { bg = dye.blend(base00, base01, 0.8) },
     ["CursorLine"] = { bg = dye.blend(base00, base01, 0.5) },
-    ["CursorLineNr"] = { fg = base0B },
+    ["CursorLineNr"] = { fg = dye.blend(base05, base03, 0.5) },
     ["DarkenedPanel"] = { bg = maybe.float_background },
     ["DarkenedStatusline"] = { bg = maybe.float_background },
     ["DiffAdd"] = { fg = base0B, bg = dye.blend(base00, base0B, 0.3) },
